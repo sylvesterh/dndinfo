@@ -1,23 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import ClassInfo from "./components/ClassInfo";
+import { Route, Link, Redirect, Switch } from "react-router-dom";
+import Class from "./components/Class";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Dungeons & Dragons</h1>
+      <Link to="/">
+        <h3>Home</h3>
+      </Link>
+      <Link to="/classes">
+        <h3>Class-related Info</h3>
+      </Link>
+      <main>
+        <Switch>
+          <Route path="/class/:classID">
+            <ClassInfo />
+          </Route>
+          <Route path="/classes">
+            <Class />
+          </Route>
+        </Switch>
+      </main>
     </div>
   );
 }
