@@ -21,6 +21,7 @@ function App() {
           <Route path="/classes">
             <Class />
           </Route>
+          <Redirect to ="/"/>
         </Switch>
       </main>
     </div>

@@ -32,7 +32,7 @@ const ClassInfo = (props) => {
       }
     };
     makeApiCall();
-  }, []);
+  }, [params.classID]);
 
   const showDetails = (status) => {
     if (status === "idle") {
