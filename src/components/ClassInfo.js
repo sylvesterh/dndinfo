@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import Proficiencies from "./InnateProficiencies/Proficiencies";
+import ChooseProfi from "./ProficiencyChoices/ChooseProfi";
+import { Grid, Paper, Typography } from "@material-ui/core";
 
 const ClassInfo = (props) => {
   const params = useParams();
@@ -7,6 +10,8 @@ const ClassInfo = (props) => {
   const [data, setData] = useState({
     name: "",
     hp: "",
+    chooseProfi: "",
+    innateProfi: "",
   });
   const url = "https://www.dnd5eapi.co/api/classes/";
 
@@ -22,6 +27,8 @@ const ClassInfo = (props) => {
         setData({
           name: json.name,
           hp: json.hit_die,
+          prof: json.proficiencies,
+          chooseProfi: json.proficiency_choices[0].from,
         });
       } catch (error) {
         setStatus("error");
@@ -51,11 +58,29 @@ const ClassInfo = (props) => {
 
   return (
     <div>
-      <div className="class-details">
+      <Grid container>
+        <Grid item xs={12} sm={6} md={3}>
+          <Paper>
+            <Typography variant="h6">Class: {data.name}</Typography>
+            <p>Hit Points: {data.hp}</p>
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Paper>
+            <Typography variant="h6">Innate Class Proficiencies:</Typography>
+            {data.prof && <Proficiencies innate={data.prof} />}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={4}>
+          <Paper>
+            <Typography variant="h6">
+              Choice of 3 proficiencies below:
+            </Typography>
+            {data.chooseProfi && <ChooseProfi choice={data.chooseProfi} />}
+          </Paper>
+        </Grid>
         {showDetails(status)}
-        <h4>Name: {data.name}</h4>
-        <p>Hit Points: {data.hp}</p>
-      </div>
+      </Grid>
     </div>
   );
 };

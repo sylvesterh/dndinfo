@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import availClasses from "./list.json";
-// import AvailClasses from "./AvailClasses";
 
 const Class = () => {
   let list = availClasses.map((item) => {
