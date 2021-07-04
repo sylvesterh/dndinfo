@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
-import Proficiencies from "./InnateProficiencies/Proficiencies";
-import ChooseProfi from "./ProficiencyChoices/ChooseProfi";
+import Proficiencies from "../InnateProficiencies/Proficiencies";
+import ChooseProfi from "../ProficiencyChoices/ChooseProfi"
 import { Grid, Paper, Typography } from "@material-ui/core";
 
 const ClassInfo = (props) => {
@@ -12,6 +12,7 @@ const ClassInfo = (props) => {
     hp: "",
     chooseProfi: "",
     innateProfi: "",
+    choices: "",
   });
   const url = "https://www.dnd5eapi.co/api/classes/";
 
@@ -29,6 +30,7 @@ const ClassInfo = (props) => {
           hp: json.hit_die,
           prof: json.proficiencies,
           chooseProfi: json.proficiency_choices[0].from,
+          choices: json.proficiency_choices[0].choose
         });
       } catch (error) {
         setStatus("error");
@@ -59,22 +61,22 @@ const ClassInfo = (props) => {
   return (
     <div>
       <Grid container>
-        <Grid item xs={12} sm={6} md={3}>
-          <Paper>
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper elevation={5}>
             <Typography variant="h6">Class: {data.name}</Typography>
             <p>Hit Points: {data.hp}</p>
           </Paper>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper>
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper elevation={5}>
             <Typography variant="h6">Innate Class Proficiencies:</Typography>
             {data.prof && <Proficiencies innate={data.prof} />}
           </Paper>
         </Grid>
-        <Grid item xs={12} md={4}>
-          <Paper>
+        <Grid item xs={12} md={12} lg={12}>
+          <Paper elevation={5}>
             <Typography variant="h6">
-              Choice of 3 proficiencies below:
+              Choice of {data.choices} proficiencies below:
             </Typography>
             {data.chooseProfi && <ChooseProfi choice={data.chooseProfi} />}
           </Paper>

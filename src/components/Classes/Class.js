@@ -6,9 +6,9 @@ const Class = () => {
   let list = availClasses.map((item) => {
     return (
       <div className="classID" key={item.index}>
-        <p>
+        <h4>
           <Link to={"/class/" + item.index}>{item.name}</Link>
-        </p>
+        </h4>
       </div>
     );
   });

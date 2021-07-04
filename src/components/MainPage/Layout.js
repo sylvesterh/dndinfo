@@ -11,14 +11,13 @@ import {
 } from "@material-ui/core";
 import HomeIcon from '@material-ui/icons/Home';
 import SubjectIcon from '@material-ui/icons/Subject';
-import { AddOutlined } from "@material-ui/icons";
 
 const drawerWidth = 240;
 
 const useStyles = makeStyles((theme)=> {
   return {
     page: {
-      background: "#1f2338",
+      background: "#4EA8DE",
       width: "100%",
       padding: theme.spacing(3)
     },
@@ -56,12 +55,6 @@ const Layout = ({ children }) => {
       icon: <SubjectIcon color="secondary" />,
       path: "/classes",
     },
-    {
-      text: "Bard",
-      icon: <AddOutlined
-      color="secondary" />,
-      path: "/class/bard"
-    }
   ];
 
   return (
