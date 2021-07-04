@@ -5,7 +5,7 @@ import {
   CardContent,
   // CardActions,
   Typography,
-  // Collapse,
+  Collapse,
 } from "@material-ui/core";
 
 const RaceCard = ({ data }) => {
@@ -21,6 +21,8 @@ const RaceCard = ({ data }) => {
             Size: {data.size}
           </Typography>
         </CardContent>
+        <Collapse>
+        </Collapse>
       </Card>
     </div>
   );

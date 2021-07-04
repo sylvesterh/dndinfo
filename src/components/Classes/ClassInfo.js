@@ -77,10 +77,10 @@ const ClassInfo = (props) => {
 
   return (
     <div>
-      <Grid container>
+      <Grid container spacing={4}>
         <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
-            <Typography variant="h6">{data.name} Basics</Typography>
+            <Typography variant="h6" align="center">{data.name} Basics</Typography>
             <h4>Sub-class: </h4> {data.subclass}
             <h4>Dice Point: </h4>
             {data.dice}
@@ -90,13 +90,13 @@ const ClassInfo = (props) => {
         </Grid>
         <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
-            <Typography variant="h6">Innate Class Proficiencies:</Typography>
+            <Typography variant="h6" align="center">Innate Class Proficiencies:</Typography>
             {data.prof && <Proficiencies innate={data.prof} />}
           </Paper>
         </Grid>
         <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
-            <Typography variant="h6">
+            <Typography variant="h6" align="center">
               Choice of {data.choices} proficiencies below:
             </Typography>
             {data.chooseProfi && <ChooseProfi choice={data.chooseProfi} />}
@@ -104,13 +104,13 @@ const ClassInfo = (props) => {
         </Grid>
         <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
-            <Typography variant="h6">Starting Equipment</Typography>
+            <Typography variant="h6" align="center">Starting Equipment</Typography>
             {equip.startingGear && <ProvidedGear provided={equip.startingGear} />}
           </Paper>
         </Grid>
         <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
-            <Typography variant="h6">
+            <Typography variant="h6" align="center">
               Choice of {equip.chooseGear} optional gear below:
             </Typography>
             {/* {equip.chosenGear && <ChooseGear optgear={equip.chosenGear} />} */}
