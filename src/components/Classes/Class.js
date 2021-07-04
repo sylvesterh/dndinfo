@@ -7,7 +7,7 @@ const Class = () => {
     return (
       <div className="classID" key={item.index}>
         <h4>
-          <Link to={"/class/" + item.index}>{item.name}</Link>
+          <Link to={"/classes/" + item.index}>{item.name}</Link>
         </h4>
       </div>
     );

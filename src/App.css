@@ -1,8 +1,10 @@
-.App {
+h1 {
   text-align: center;
-}
-
-h1,p {
   background-color: antiquewhite;
   padding: 4px
+}
+
+h4 {
+  text-align: center;
+  background-color:#ec7474;
 }

@@ -1,19 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { useParams } from "react-router";
-import Proficiencies from "../InnateProficiencies/Proficiencies";
-import ChooseProfi from "../ProficiencyChoices/ChooseProfi"
+// import ChooseGear from "./StarterGears/ChooseGear";
 import { Grid, Paper, Typography } from "@material-ui/core";
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router";
+import Proficiencies from "./InnateProficiencies/Proficiencies";
+import ChooseProfi from "./ProficiencyChoices/ChooseProfi";
+import ProvidedGear from "./StarterGears/ProvidedGear";
+import SavingThrow from "./Stats/SavingThrow";
 
 const ClassInfo = (props) => {
   const params = useParams();
   const [status, setStatus] = useState("idle");
   const [data, setData] = useState({
     name: "",
-    hp: "",
+    dice: "",
     chooseProfi: "",
     innateProfi: "",
     choices: "",
+    savingThrows: "",
+    subclass: "",
   });
+  const [equip,setEquip] = useState({
+    startingGear: "",
+    chooseGear: "",
+    chosenGear: "",
+  })
   const url = "https://www.dnd5eapi.co/api/classes/";
 
   useEffect(() => {
@@ -27,11 +37,18 @@ const ClassInfo = (props) => {
         const json = await res.json();
         setData({
           name: json.name,
-          hp: json.hit_die,
+          dice: json.hit_die,
           prof: json.proficiencies,
           chooseProfi: json.proficiency_choices[0].from,
-          choices: json.proficiency_choices[0].choose
+          choices: json.proficiency_choices[0].choose,
+          savingThrows: json.saving_throws,
+          subclass: json.subclasses[0].name,
         });
+        setEquip({
+          startingGear: json.starting_equipment,
+          chooseGear: json.starting_equipment_options[0].choose,
+          chosenGear: json.starting_equipment_options[0].from,
+        })
       } catch (error) {
         setStatus("error");
         alert(error);
@@ -45,7 +62,7 @@ const ClassInfo = (props) => {
 
   const showDetails = (status) => {
     if (status === "idle") {
-      return "Please enter a currency";
+      return "Please select a class";
     }
     if (status === "pending") {
       return "Loading...";
@@ -61,24 +78,42 @@ const ClassInfo = (props) => {
   return (
     <div>
       <Grid container>
-        <Grid item xs={12} md={12} lg={12}>
+        <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
-            <Typography variant="h6">Class: {data.name}</Typography>
-            <p>Hit Points: {data.hp}</p>
+            <Typography variant="h6">{data.name} Basics</Typography>
+            <h4>Sub-class: </h4> {data.subclass}
+            <h4>Dice Point: </h4>
+            {data.dice}
+            <h4>Saving Throw/ Main Stats</h4>
+            {data.savingThrows && <SavingThrow stats={data.savingThrows} />}
           </Paper>
         </Grid>
-        <Grid item xs={12} md={12} lg={12}>
+        <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
             <Typography variant="h6">Innate Class Proficiencies:</Typography>
             {data.prof && <Proficiencies innate={data.prof} />}
           </Paper>
         </Grid>
-        <Grid item xs={12} md={12} lg={12}>
+        <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
             <Typography variant="h6">
               Choice of {data.choices} proficiencies below:
             </Typography>
             {data.chooseProfi && <ChooseProfi choice={data.chooseProfi} />}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={8} lg={8}>
+          <Paper elevation={5}>
+            <Typography variant="h6">Starting Equipment</Typography>
+            {equip.startingGear && <ProvidedGear provided={equip.startingGear} />}
+          </Paper>
+        </Grid>
+        <Grid item xs={12} md={8} lg={8}>
+          <Paper elevation={5}>
+            <Typography variant="h6">
+              Choice of {equip.chooseGear} optional gear below:
+            </Typography>
+            {/* {equip.chosenGear && <ChooseGear optgear={equip.chosenGear} />} */}
           </Paper>
         </Grid>
         {showDetails(status)}

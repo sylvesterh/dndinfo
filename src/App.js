@@ -1,9 +1,11 @@
+import { Redirect, Route, Switch } from "react-router-dom";
 import "./App.css";
-import ClassInfo from "./components/Classes/ClassInfo";
-import { Route, Redirect, Switch } from "react-router-dom";
 import Class from "./components/Classes/Class";
-import Layout from "./components/MainPage/Layout";
+import ClassInfo from "./components/Classes/ClassInfo";
 import Home from "./components/MainPage/Home";
+import Layout from "./components/MainPage/Layout";
+import Race from "./components/Races/Race";
+import RaceInfo from "./components/Races/RaceInfo";
 
 function App() {
   return (
@@ -14,14 +16,19 @@ function App() {
             <Route exact path="/">
               <Home />
             </Route>
-            <Route path="/class/:classID">
+            <Route path="/classes/:classID">
               <ClassInfo />
             </Route>
             <Route path="/classes">
-              <h1>
-                Classes
-              </h1>
+              <h1>Classes</h1>
               <Class />
+            </Route>
+            <Route path="/races/:raceID">
+              <RaceInfo />
+            </Route>
+            <Route path="/races">
+              <h1>Races</h1>
+              <Race />
             </Route>
             <Redirect to="/" />
           </Switch>

@@ -55,6 +55,11 @@ const Layout = ({ children }) => {
       icon: <SubjectIcon color="secondary" />,
       path: "/classes",
     },
+    {
+      text: "Races",
+      icon: <SubjectIcon color="secondary" />,
+      path: "/races",
+    },
   ];
 
   return (
