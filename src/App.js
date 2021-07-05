@@ -30,6 +30,9 @@ function App() {
               <h1>Races</h1>
               <Race />
             </Route>
+            <Route path ="/simulate">
+              <h1>Create your Character</h1>
+            </Route>
             <Redirect to="/" />
           </Switch>
         </Layout>

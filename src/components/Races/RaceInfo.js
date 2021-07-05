@@ -9,14 +9,14 @@ const RaceInfo = (props) => {
   const [race, setRace] = useState({
     name: "",
     speed: "",
-    bonusability: "",
+    bonusability: [],
     alignment: "",
     size: "",
     sizedesc: "",
     age: "",
-    lang: "",
+    lang: [],
     langdesc: "",
-    traits: "",
+    traits: [],
     // chooseTrait: "",
     // chosenTrait: "",
   });
@@ -31,18 +31,18 @@ const RaceInfo = (props) => {
       setStatus("pending");
       try {
         const res = await fetch(raceUrl);
-        const json = await res.json();
+        const json = await res?.json();
         setRace({
-          name: json.name,
-          speed: json.speed,
-          bonusability: json.ability_bonuses,
-          alignment: json.alignment,
-          size: json.size,
-          sizedesc: json.size_description,
-          age: json.age,
-          lang: json.languages,
-          langdesc: json.language_desc,
-          traits: json.traits,
+          name: json?.name,
+          speed: json?.speed,
+          bonusability: json?.ability_bonuses,
+          alignment: json?.alignment,
+          size: json?.size,
+          sizedesc: json?.size_description,
+          age: json?.age,
+          lang: json?.languages,
+          langdesc: json?.language_desc,
+          // traits: json?.traits,
         //   chooseTrait: json?.trait_options?.choose,
         //   chosenTrait: json?.trait_options?.from,
         });

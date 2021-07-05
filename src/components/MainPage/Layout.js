@@ -11,6 +11,7 @@ import {
 } from "@material-ui/core";
 import HomeIcon from '@material-ui/icons/Home';
 import SubjectIcon from '@material-ui/icons/Subject';
+import AccessibilityIcon from '@material-ui/icons/Accessibility';
 
 const drawerWidth = 240;
 
@@ -59,6 +60,11 @@ const Layout = ({ children }) => {
       text: "Races",
       icon: <SubjectIcon color="secondary" />,
       path: "/races",
+    },
+    {
+      text: "Create your character",
+      icon: <AccessibilityIcon color="secondary" />,
+      path: "/simulate",
     },
   ];
 

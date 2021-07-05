@@ -4,7 +4,7 @@ const ChooseGear = ({optgear}) => {
     return (
         <div>
             <ol>
-                {optgear.map((opt)=> (<li key={opt.equipment.index}>{opt.equipment.name} x {opt.quantity}</li>))}
+                {optgear?.map((opt)=> (<li key={opt?.equipment?.index}>{opt?.equipment?.name} x {opt?.quantity}</li>))}
             </ol>
         </div>
     )

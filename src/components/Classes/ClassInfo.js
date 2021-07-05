@@ -1,4 +1,4 @@
-// import ChooseGear from "./StarterGears/ChooseGear";
+import ChooseGear from "./StarterGears/ChooseGear";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
@@ -45,9 +45,9 @@ const ClassInfo = (props) => {
           subclass: json.subclasses[0].name,
         });
         setEquip({
-          startingGear: json.starting_equipment,
-          chooseGear: json.starting_equipment_options[0].choose,
-          chosenGear: json.starting_equipment_options[0].from,
+          startingGear: json?.starting_equipment,
+          chooseGear: json?.starting_equipment_options[0]?.choose,
+          chosenGear: json?.starting_equipment_options[0]?.from,
         })
       } catch (error) {
         setStatus("error");
@@ -113,7 +113,7 @@ const ClassInfo = (props) => {
             <Typography variant="h6" align="center">
               Choice of {equip.chooseGear} optional gear below:
             </Typography>
-            {/* {equip.chosenGear && <ChooseGear optgear={equip.chosenGear} />} */}
+            {equip?.chosenGear && <ChooseGear optgear={equip?.chosenGear} />}
           </Paper>
         </Grid>
         {showDetails(status)}
