@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import { Grid } from "@material-ui/core";
-import RaceCard from "./components/RaceCard"
+import RaceCard from "./RaceCard"
 
 const RaceInfo = (props) => {
   const params = useParams();

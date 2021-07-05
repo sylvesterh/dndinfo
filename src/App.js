@@ -6,6 +6,7 @@ import Home from "./components/MainPage/Home";
 import Layout from "./components/MainPage/Layout";
 import Race from "./components/Races/Race";
 import RaceInfo from "./components/Races/RaceInfo";
+import Calculate from "./components/MainPage/Calculate";
 
 function App() {
   return (
@@ -30,8 +31,9 @@ function App() {
               <h1>Races</h1>
               <Race />
             </Route>
-            <Route path ="/simulate">
+            <Route path="/simulate">
               <h1>Create your Character</h1>
+              <Calculate />
             </Route>
             <Redirect to="/" />
           </Switch>
