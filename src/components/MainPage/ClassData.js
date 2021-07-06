@@ -30,31 +30,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Calculated = ({ raceData }) => {
+const ClassData = ({ classInfo }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-
+  
   return (
     <div>
       <Card elevation={12} className={classes.root}>
-        <CardHeader title={raceData.name} />
+        <CardHeader title={classInfo.name} />
         <CardContent>
           <Typography paragraph color={"textPrimary"}>
-            Speed: {raceData.speed}
+            Dice Point: {classInfo.dice}
           </Typography>
           <Typography paragraph color={"textPrimary"}>
-            Size: {raceData.size}
+            Starting Gear:
+          </Typography>
+          <Typography paragraph color={"textSecondary"}>
+            {classInfo.startingGear.map((gear) => (
+              <p key={gear.equipment.index}>
+                {gear.equipment.name} x {gear.quantity}
+              </p>
+            ))}
           </Typography>
           <Typography paragraph color={"textPrimary"}>
-            Languages:
+            Saving Throw/ Main Stats:
           </Typography>
           <Typography color={"textSecondary"} display={"block"}>
-            {raceData.lang.map((item) => (
-              <li key={item?.index}>{item?.name}</li>
+            {classInfo.savingThrows.map((item) => (
+              <li key={item.index}>{item.name}</li>
             ))}
           </Typography>
         </CardContent>
@@ -72,13 +79,7 @@ const Calculated = ({ raceData }) => {
         </CardActions>
         <Collapse in={expanded} unmountOnExit>
           <CardContent>
-            <Typography paragraph color={"textSecondary"}>
-              Alignment:
-            </Typography>
-            <Typography paragraph color={"textSecondary"}>
-              {raceData.alignment}
-            </Typography>
-            <Typography paragraph color={"textSecondary"}>
+            {/* <Typography paragraph color={"textSecondary"}>
               Language
             </Typography>
             <Typography paragraph color={"textSecondary"}>
@@ -95,7 +96,7 @@ const Calculated = ({ raceData }) => {
             </Typography>
             <Typography paragraph color={"textSecondary"}>
               {raceData.sizedesc}
-            </Typography>
+            </Typography> */}
           </CardContent>
         </Collapse>
       </Card>
@@ -103,4 +104,4 @@ const Calculated = ({ raceData }) => {
   );
 };
 
-export default Calculated;
+export default ClassData;

@@ -1,7 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, } from "react";
 import Calculated from "./Calculated";
+import ClassData from "./ClassData";
+// import { useHistory } from "react-router-dom";
 
 const Calculate = () => {
+  // let history = useHistory()
   const [raceChange, setRaceChange] = useState();
   const [classChange, setClassChange] = useState();
   const [classList, setClassList] = useState([]);
@@ -23,14 +26,14 @@ const Calculate = () => {
   const [classData, setClassData] = useState({
     name: "",
     dice: "",
-    chooseProfi: "",
-    innateProfi: "",
+    chooseProfi: [],
+    innateProfi: [],
     choices: "",
-    savingThrows: "",
+    savingThrows: [],
     subclass: "",
-    startingGear: "",
-    chooseGear: "",
-    chosenGear: "",
+    startingGear: [],
+    chooseGear: [],
+    chosenGear: [],
   });
   const raceUrl = "https://www.dnd5eapi.co/api/races/";
   const classUrl = "https://www.dnd5eapi.co/api/classes/";
@@ -66,7 +69,7 @@ const Calculate = () => {
   const handleSubmit = () => {
     const selectClassUrl = `${classUrl}${classChange}`;
     const selectRaceUrl = `${raceUrl}${raceChange}`;
-    console.log(selectClassUrl, selectRaceUrl);
+    // history.push(`/${raceChange}/${classChange}`)
 
     const makeRaceApiCall = async () => {
       const res = await fetch(selectRaceUrl);
@@ -91,16 +94,16 @@ const Calculate = () => {
       const res = await fetch(selectClassUrl);
       const json = await res.json();
       setClassData({
-        name: json.name,
-        dice: json.hit_die,
-        prof: json.proficiencies,
-        chooseProfi: json.proficiency_choices[0].from,
-        choices: json.proficiency_choices[0].choose,
-        savingThrows: json.saving_throws,
-        subclass: json.subclasses[0].name,
-        startingGear: json.starting_equipment,
-        chooseGear: json.starting_equipment_options[0].choose,
-        chosenGear: json.starting_equipment_options[0].from,
+        name: json?.name,
+        dice: json?.hit_die,
+        prof: json?.proficiencies,
+        chooseProfi: json?.proficiency_choices[0].from,
+        choices: json?.proficiency_choices[0].choose,
+        savingThrows: json?.saving_throws,
+        subclass: json?.subclasses[0].name,
+        startingGear: json?.starting_equipment,
+        chooseGear: json?.starting_equipment_options[0].choose,
+        chosenGear: json?.starting_equipment_options[0].from,
       });
     };
 
@@ -111,17 +114,22 @@ const Calculate = () => {
   return (
     <div>
       <select onChange={handleRaceChange}>
+          <option>Select Race</option>
         {raceList.map((item) => (
           <option value={item.index}>{item.name}</option>
         ))}
       </select>
       <select onChange={handleClassChange}>
+        <option>Select Class</option>
         {classList.map((item) => (
           <option value={item.index}>{item.name}</option>
         ))}
       </select>
       <button onClick={handleSubmit}>Submit</button>
-      <Calculated raceData={race} classData={classData} />
+      <div className="card-handler">
+        <Calculated raceData={race} />
+        <ClassData classInfo={classData} />
+      </div>
     </div>
   );
 };
