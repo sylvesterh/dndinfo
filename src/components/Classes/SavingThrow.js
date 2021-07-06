@@ -4,7 +4,7 @@ const SavingThrow = ({stats}) => {
     return (
         <div>
             {stats.map((stat) => (
-                <p key={stat.index}>{stat.name}</p>
+                <li key={stat.index}>{stat.name}</li>
             ))}
         </div>
     )

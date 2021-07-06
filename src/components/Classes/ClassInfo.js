@@ -13,16 +13,16 @@ const ClassInfo = (props) => {
   const [data, setData] = useState({
     name: "",
     dice: "",
-    chooseProfi: "",
-    innateProfi: "",
+    chooseProfi: [],
+    innateProfi: [],
     choices: "",
-    savingThrows: "",
+    savingThrows: [],
     subclass: "",
   });
   const [equip,setEquip] = useState({
-    startingGear: "",
+    startingGear: [],
     chooseGear: "",
-    chosenGear: "",
+    chosenGear: [],
   })
   const url = "https://www.dnd5eapi.co/api/classes/";
 
@@ -81,9 +81,10 @@ const ClassInfo = (props) => {
         <Grid item xs={12} md={8} lg={8}>
           <Paper elevation={5}>
             <Typography variant="h6" align="center">{data.name} Basics</Typography>
-            <h4>Sub-class: </h4> {data.subclass}
+            <h4>Sub-class: </h4>
+            <li>{data.subclass}</li>
             <h4>Dice Point: </h4>
-            {data.dice}
+            <li>{data.dice}</li>
             <h4>Saving Throw/ Main Stats</h4>
             {data.savingThrows && <SavingThrow stats={data.savingThrows} />}
           </Paper>

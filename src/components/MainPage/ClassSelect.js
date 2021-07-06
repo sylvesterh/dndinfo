@@ -37,7 +37,7 @@ const ClassSelect = ({ classInfo }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
-  
+
   return (
     <div>
       <Card elevation={12} className={classes.root}>
@@ -51,9 +51,9 @@ const ClassSelect = ({ classInfo }) => {
           </Typography>
           <Typography paragraph color={"textSecondary"}>
             {classInfo.startingGear.map((gear) => (
-              <p key={gear.equipment.index}>
+              <li key={gear.equipment.index}>
                 {gear.equipment.name} x {gear.quantity}
-              </p>
+              </li>
             ))}
           </Typography>
           <Typography paragraph color={"textPrimary"}>
@@ -79,24 +79,30 @@ const ClassSelect = ({ classInfo }) => {
         </CardActions>
         <Collapse in={expanded} unmountOnExit>
           <CardContent>
-            {/* <Typography paragraph color={"textSecondary"}>
-              Language
+            <Typography paragraph color={"textSecondary"}>
+              Sub-class:
             </Typography>
             <Typography paragraph color={"textSecondary"}>
-              {raceData.langdesc}
+              <li>{classInfo.subclass}</li>
             </Typography>
             <Typography paragraph color={"textSecondary"}>
-              Age:
+              Racial Proficiencies:
             </Typography>
             <Typography paragraph color={"textSecondary"}>
-              {raceData.age}
+              {classInfo?.prof?.map((innate) => (
+                <li key={innate?.index}>{innate?.name}</li>
+              ))}
             </Typography>
             <Typography paragraph color={"textSecondary"}>
-              Size Description:
+              Choice of {classInfo.chooseGear} optional starting gears:
             </Typography>
             <Typography paragraph color={"textSecondary"}>
-              {raceData.sizedesc}
-            </Typography> */}
+              {classInfo?.chosenGear?.map((gear) => (
+                <li key={gear?.equipment?.index}>
+                  {gear?.equipment?.name} x {gear?.quantity}
+                </li>
+              ))}
+            </Typography>
           </CardContent>
         </Collapse>
       </Card>

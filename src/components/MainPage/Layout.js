@@ -52,7 +52,7 @@ const Layout = ({ children }) => {
       path: "/",
     },
     {
-      text: "Class-related Info",
+      text: "Classes",
       icon: <SubjectIcon color="secondary" />,
       path: "/classes",
     },

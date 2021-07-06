@@ -73,14 +73,6 @@ const RaceSelect = ({ raceData }) => {
               <li key={item?.index}>{item?.name}</li>
             ))}
           </Typography>
-          <Typography paragraph color={"textPrimary"}>
-            Choice of {raceData.chooseTrait} Extra Trait:
-          </Typography>
-          <Typography color={"textSecondary"} display={"block"}>
-            {raceData.chosenTrait !== undefined ? raceData.chosenTrait.map((item) => (
-              <li key={item?.index}>{item?.name}</li>
-            )) : "None"}
-          </Typography>
         </CardContent>
         <CardActions>
           <IconButton
@@ -96,6 +88,14 @@ const RaceSelect = ({ raceData }) => {
         </CardActions>
         <Collapse in={expanded} unmountOnExit>
           <CardContent>
+          <Typography paragraph color={"textSecondary"}>
+            Choice of {raceData.chooseTrait} Extra Trait:
+          </Typography>
+          <Typography color={"textSecondary"} display={"block"}>
+            {raceData.chosenTrait !== undefined ? raceData.chosenTrait.map((item) => (
+              <li key={item?.index}>{item?.name}</li>
+            )) : "None"}
+          </Typography>
             <Typography paragraph color={"textSecondary"}>
               Alignment:
             </Typography>

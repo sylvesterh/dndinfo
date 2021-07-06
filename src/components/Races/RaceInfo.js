@@ -17,8 +17,8 @@ const RaceInfo = (props) => {
     lang: [],
     langdesc: "",
     traits: [],
-    // chooseTrait: "",
-    // chosenTrait: "",
+    chooseTrait: "",
+    chosenTrait: [],
   });
 
   const url = "https://www.dnd5eapi.co/api/races/";
@@ -42,9 +42,9 @@ const RaceInfo = (props) => {
           age: json?.age,
           lang: json?.languages,
           langdesc: json?.language_desc,
-          // traits: json?.traits,
-        //   chooseTrait: json?.trait_options?.choose,
-        //   chosenTrait: json?.trait_options?.from,
+          traits: json?.traits,
+          chooseTrait: json?.trait_options?.choose,
+          chosenTrait: json?.trait_options?.from,
         });
       } catch (error) {
         setStatus("error");

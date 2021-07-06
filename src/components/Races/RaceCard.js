@@ -53,7 +53,7 @@ const RaceCard = ({ data }) => {
           </Typography>
           <Typography color={"textPrimary"} display={"block"}>
             {data.lang.map((item) => (
-              <q key={item?.index}>{item?.name}</q>
+              <li key={item?.index}>{item?.name}</li>
             ))}
           </Typography>
         </CardContent>
