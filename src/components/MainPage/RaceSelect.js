@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Calculated = ({ raceData }) => {
+const RaceSelect = ({ raceData }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -50,12 +50,36 @@ const Calculated = ({ raceData }) => {
             Size: {raceData.size}
           </Typography>
           <Typography paragraph color={"textPrimary"}>
+            Race Ability Bonuses:
+          </Typography>
+          <Typography color={"textSecondary"} display={"block"}>
+            {raceData.bonusability.map((item) => (
+              <li key={item?.ability_score?.index}> {item?.bonus} {item?.ability_score?.name}</li>
+            ))}
+          </Typography>
+          <Typography paragraph color={"textPrimary"}>
             Languages:
           </Typography>
           <Typography color={"textSecondary"} display={"block"}>
             {raceData.lang.map((item) => (
               <li key={item?.index}>{item?.name}</li>
             ))}
+          </Typography>
+          <Typography paragraph color={"textPrimary"}>
+            Traits:
+          </Typography>
+          <Typography color={"textSecondary"} display={"block"}>
+            {raceData.traits.map((item) => (
+              <li key={item?.index}>{item?.name}</li>
+            ))}
+          </Typography>
+          <Typography paragraph color={"textPrimary"}>
+            Choice of {raceData.chooseTrait} Extra Trait:
+          </Typography>
+          <Typography color={"textSecondary"} display={"block"}>
+            {raceData.chosenTrait !== undefined ? raceData.chosenTrait.map((item) => (
+              <li key={item?.index}>{item?.name}</li>
+            )) : "None"}
           </Typography>
         </CardContent>
         <CardActions>
@@ -103,4 +127,4 @@ const Calculated = ({ raceData }) => {
   );
 };
 
-export default Calculated;
+export default RaceSelect;

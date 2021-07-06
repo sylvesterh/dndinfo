@@ -1,11 +1,11 @@
-import ChooseGear from "./StarterGears/ChooseGear";
+import ChooseGear from "./ChooseGear";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import Proficiencies from "./InnateProficiencies/Proficiencies";
-import ChooseProfi from "./ProficiencyChoices/ChooseProfi";
-import ProvidedGear from "./StarterGears/ProvidedGear";
-import SavingThrow from "./Stats/SavingThrow";
+import Proficiencies from "./Proficiencies";
+import ChooseProfi from "./ChooseProfi";
+import ProvidedGear from "./ProvidedGear";
+import SavingThrow from "./SavingThrow";
 
 const ClassInfo = (props) => {
   const params = useParams();

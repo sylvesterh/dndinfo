@@ -30,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ClassData = ({ classInfo }) => {
+const ClassSelect = ({ classInfo }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -104,4 +104,4 @@ const ClassData = ({ classInfo }) => {
   );
 };
 
-export default ClassData;
+export default ClassSelect;

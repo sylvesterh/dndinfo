@@ -1,10 +1,10 @@
-import React, { useState, useEffect, } from "react";
-import Calculated from "./Calculated";
-import ClassData from "./ClassData";
-// import { useHistory } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import RaceSelect from "./RaceSelect";
+import ClassSelect from "./ClassSelect";
+import { useHistory } from "react-router-dom";
 
 const Calculate = () => {
-  // let history = useHistory()
+  const history = useHistory();
   const [raceChange, setRaceChange] = useState();
   const [classChange, setClassChange] = useState();
   const [classList, setClassList] = useState([]);
@@ -12,6 +12,7 @@ const Calculate = () => {
   const [race, setRace] = useState({
     name: "",
     speed: "",
+    bonuspoint: "",
     bonusability: [],
     alignment: "",
     size: "",
@@ -20,8 +21,8 @@ const Calculate = () => {
     lang: [],
     langdesc: "",
     traits: [],
-    // chooseTrait: "",
-    // chosenTrait: "",
+    chooseTrait: "",
+    chosenTrait: [],
   });
   const [classData, setClassData] = useState({
     name: "",
@@ -32,7 +33,7 @@ const Calculate = () => {
     savingThrows: [],
     subclass: "",
     startingGear: [],
-    chooseGear: [],
+    chooseGear: "",
     chosenGear: [],
   });
   const raceUrl = "https://www.dnd5eapi.co/api/races/";
@@ -69,7 +70,6 @@ const Calculate = () => {
   const handleSubmit = () => {
     const selectClassUrl = `${classUrl}${classChange}`;
     const selectRaceUrl = `${raceUrl}${raceChange}`;
-    // history.push(`/${raceChange}/${classChange}`)
 
     const makeRaceApiCall = async () => {
       const res = await fetch(selectRaceUrl);
@@ -84,9 +84,9 @@ const Calculate = () => {
         age: json.age,
         lang: json.languages,
         langdesc: json.language_desc,
-        // traits: json?.traits,
-        //   chooseTrait: json?.trait_options?.choose,
-        //   chosenTrait: json?.trait_options?.from,
+        traits: json.traits,
+        chooseTrait: json?.trait_options?.choose,
+        chosenTrait: json?.trait_options?.from,
       });
     };
 
@@ -109,12 +109,14 @@ const Calculate = () => {
 
     makeClassApiCall();
     makeRaceApiCall();
+
+    history.push(`/simulate/${raceChange}/${classChange}`);
   };
 
   return (
     <div>
       <select onChange={handleRaceChange}>
-          <option>Select Race</option>
+        <option>Select Race</option>
         {raceList.map((item) => (
           <option value={item.index}>{item.name}</option>
         ))}
@@ -127,8 +129,8 @@ const Calculate = () => {
       </select>
       <button onClick={handleSubmit}>Submit</button>
       <div className="card-handler">
-        <Calculated raceData={race} />
-        <ClassData classInfo={classData} />
+        <RaceSelect raceData={race} />
+        <ClassSelect classInfo={classData} />
       </div>
     </div>
   );
