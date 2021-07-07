@@ -16,8 +16,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: 300,
     maxWidth: 300,
-    marginRight: 30,
-    marginBottom: 30,
   },
   expand: {
     transform: "rotate(0deg)",
@@ -31,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const ClassSelect = ({ classInfo }) => {
+const LevelSystem = ({ levelData }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -42,28 +40,36 @@ const ClassSelect = ({ classInfo }) => {
   return (
     <div>
       <Card elevation={12} className={classes.root}>
-        <CardHeader title={classInfo.name} />
+        <CardHeader title="Level Guide" />
         <CardContent>
           <Typography paragraph color={"textPrimary"}>
-            Dice Point: {classInfo.dice}
+            Level: {levelData?.level}
           </Typography>
           <Typography paragraph color={"textPrimary"}>
-            Starting Gear:
-          </Typography>
-          <Typography paragraph color={"textSecondary"}>
-            {classInfo.startingGear.map((gear) => (
-              <li key={gear.equipment.index}>
-                {gear.equipment.name} x {gear.quantity}
-              </li>
-            ))}
+            Ability score bonuses: {levelData?.abilityBonus}
           </Typography>
           <Typography paragraph color={"textPrimary"}>
-            Saving Throw/ Main Stats:
+            Proficiency bonus: {levelData?.profiBonus}
+          </Typography>
+          <Typography paragraph color={"textPrimary"}>
+            Level Features:
           </Typography>
           <Typography color={"textSecondary"} display={"block"}>
-            {classInfo.savingThrows.map((item) => (
-              <li key={item.index}>{item.name}</li>
+            {levelData?.levelFeatures?.map((item) => (
+              <li key={item?.index}>{item?.name}</li>
             ))}
+          </Typography>
+          <Typography paragraph color={"textPrimary"}>
+            Class Specific Dices:
+          </Typography>
+          <Typography color={"textSecondary"} display={"block"}>
+            {levelData.classSpecDice !== undefined || null
+              ? Object.entries(levelData?.classSpecDice).map(([key, value]) => (
+                  <li key={value}>
+                    {key} : {value.toString()}
+                  </li>
+                ))
+              : "None"}
           </Typography>
         </CardContent>
         <CardActions>
@@ -80,29 +86,19 @@ const ClassSelect = ({ classInfo }) => {
         </CardActions>
         <Collapse in={expanded} unmountOnExit>
           <CardContent>
-            <Typography paragraph color={"textSecondary"}>
-              Sub-class:
+            <Typography paragraph color={"textPrimary"}>
+              Spell slots:
             </Typography>
-            <Typography paragraph color={"textSecondary"}>
-              <li>{classInfo.subclass}</li>
-            </Typography>
-            <Typography paragraph color={"textSecondary"}>
-              Racial Proficiencies:
-            </Typography>
-            <Typography paragraph color={"textSecondary"}>
-              {classInfo?.prof?.map((innate) => (
-                <li key={innate?.index}>{innate?.name}</li>
-              ))}
-            </Typography>
-            <Typography paragraph color={"textSecondary"}>
-              Choice of {classInfo.chooseGear} optional starting gears:
-            </Typography>
-            <Typography paragraph color={"textSecondary"}>
-              {classInfo?.chosenGear?.map((gear) => (
-                <li key={gear?.equipment?.index}>
-                  {gear?.equipment?.name} x {gear?.quantity}
-                </li>
-              ))}
+            <Typography color={"textSecondary"} display={"block"}>
+              {levelData.spellcasting !== undefined || null
+                ? Object.entries(levelData?.spellcasting).map(
+                    ([key, value]) => (
+                      <li key={value}>
+                        {key} : {value.toString()}
+                      </li>
+                    )
+                  )
+                : "None"}
             </Typography>
           </CardContent>
         </Collapse>
@@ -111,4 +107,4 @@ const ClassSelect = ({ classInfo }) => {
   );
 };
 
-export default ClassSelect;
+export default LevelSystem;

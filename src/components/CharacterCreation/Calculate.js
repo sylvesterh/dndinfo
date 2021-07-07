@@ -1,14 +1,45 @@
-import React, { useState, useEffect } from "react";
-import RaceSelect from "./RaceSelect";
-import ClassSelect from "./ClassSelect";
+import { Grid, Paper, TextField } from "@material-ui/core";
+import Button from "@material-ui/core/Button";
+import FormControl from "@material-ui/core/FormControl";
+import IconButton from "@material-ui/core/IconButton";
+import InputLabel from "@material-ui/core/InputLabel";
+import MenuItem from "@material-ui/core/MenuItem";
+import Select from "@material-ui/core/Select";
+import { makeStyles } from "@material-ui/core/styles";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import SendIcon from "@material-ui/icons/Send";
+import React, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
+import ClassSelect from "./ClassSelect";
+import LevelSystem from "./LevelSystem";
+import RaceSelect from "./RaceSelect";
+
+const useStyles = makeStyles((theme) => ({
+  button: {
+    margin: theme.spacing(1),
+  },
+  root: {
+    flexGrow: 1,
+    padding: theme.spacing(3),
+  },
+  select: {
+    textAlign: "center",
+  },
+  formControl: {
+    margin: theme.spacing(3),
+    minWidth: 120,
+  },
+}));
 
 const Calculate = () => {
+  const classes = useStyles();
   const history = useHistory();
   const [raceChange, setRaceChange] = useState();
   const [classChange, setClassChange] = useState();
   const [classList, setClassList] = useState([]);
   const [raceList, setRaceList] = useState([]);
+  const [level, setLevel] = useState(1);
   const [race, setRace] = useState({
     name: "",
     speed: "",
@@ -35,6 +66,14 @@ const Calculate = () => {
     startingGear: [],
     chooseGear: "",
     chosenGear: [],
+  });
+  const [classLevel, setClassLevel] = useState({
+    level: "",
+    abilityBonus: "",
+    profiBonus: "",
+    spellcasting: {},
+    classSpecDice: {},
+    levelFeatures: [],
   });
 
   const raceUrl = "https://www.dnd5eapi.co/api/races/";
@@ -72,6 +111,7 @@ const Calculate = () => {
     if (classChange || raceChange !== undefined) {
       const selectClassUrl = `${classUrl}${classChange}`;
       const selectRaceUrl = `${raceUrl}${raceChange}`;
+      const classLevelUrl = `${classUrl}${classChange}/levels/${level}`;
 
       const makeRaceApiCall = async () => {
         const res = await fetch(selectRaceUrl);
@@ -99,8 +139,8 @@ const Calculate = () => {
           name: json?.name,
           dice: json?.hit_die,
           prof: json?.proficiencies,
-          chooseProfi: json?.proficiency_choices[0].from,
-          choices: json?.proficiency_choices[0].choose,
+          chooseProfi: json?.proficiency_choices[0]?.from,
+          choices: json?.proficiency_choices[0]?.choose,
           savingThrows: json?.saving_throws,
           subclass: json?.subclasses[0].name,
           startingGear: json?.starting_equipment,
@@ -108,8 +148,21 @@ const Calculate = () => {
           chosenGear: json?.starting_equipment_options[0].from,
         });
       };
+      const makeClassLevelApiCall = async () => {
+        const res = await fetch(classLevelUrl);
+        const json = await res.json();
+        setClassLevel({
+          level: json.level,
+          abilityBonus: json.ability_score_bonuses,
+          profiBonus: json.prof_bonus,
+          spellcasting: json.spellcasting,
+          classSpecDice: json.class_specific,
+          levelFeatures: json.features,
+        });
+      };
 
       makeClassApiCall();
+      makeClassLevelApiCall();
       makeRaceApiCall();
 
       history.push(`/simulate/${raceChange}/${classChange}`);
@@ -118,24 +171,109 @@ const Calculate = () => {
     }
   };
 
+  const handleMinus = () => {
+    if (level > 1) {
+      const current = level - 1;
+      setLevel(current);
+    } else {
+      setLevel(level);
+    }
+  };
+
+  const handleAdd = () => {
+    if (level < 20) {
+      const current = level + 1;
+      setLevel(current);
+    } else {
+      setLevel(level);
+    }
+  };
+
   return (
     <div>
-      <select onChange={handleRaceChange}>
-        <option>Select Race</option>
-        {raceList.map((item) => (
-          <option value={item.index}>{item.name}</option>
-        ))}
-      </select>
-      <select onChange={handleClassChange}>
-        <option>Select Class</option>
-        {classList.map((item) => (
-          <option value={item.index}>{item.name}</option>
-        ))}
-      </select>
-      <button onClick={handleSubmit}>Submit</button>
-      <div className="card-handler">
-        <RaceSelect raceData={race} />
-        <ClassSelect classInfo={classData} />
+      <div className={classes.select}>
+        <Grid container direction="column" alignItems="center" justify="center">
+          <Paper>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="demo-simple-select-outlined-label">
+                Select Race
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={raceChange}
+                onChange={handleRaceChange}
+                label="Race"
+              >
+                <MenuItem value="">
+                  <em>Select Race</em>
+                </MenuItem>
+                {raceList.map((item) => (
+                  <MenuItem value={item.index}>{item.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+            <FormControl variant="outlined" className={classes.formControl}>
+              <InputLabel id="demo-simple-select-outlined-label">
+                Select Class
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-outlined-label"
+                id="demo-simple-select-outlined"
+                value={classChange}
+                onChange={handleClassChange}
+                label="Class"
+              >
+                <MenuItem value="">
+                  <em>Select Class</em>
+                </MenuItem>
+                {classList.map((item) => (
+                  <MenuItem value={item.index}>{item.name}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            <br></br>
+            <IconButton color="primary" onClick={handleMinus}>
+              <RemoveIcon />
+            </IconButton>
+            <TextField
+              id="outlined-read-only-input"
+              label="Character Level"
+              value={level}
+              InputProps={{
+                readOnly: true,
+              }}
+              variant="outlined"
+            />
+            <IconButton color="primary" onClick={handleAdd}>
+              <AddIcon />
+            </IconButton>
+            <br></br>
+            <Button
+              variant="contained"
+              color="primary"
+              className={classes.button}
+              endIcon={<SendIcon />}
+              onClick={handleSubmit}
+            >
+              Submit
+            </Button>
+          </Paper>
+        </Grid>
+      </div>
+      <div className={classes.root}>
+        <Grid
+          container
+          spacing={2}
+          direction="row"
+          justify="center"
+          alignItems="flex-start"
+        >
+          <RaceSelect raceData={race} />
+          <ClassSelect classInfo={classData} />
+          <LevelSystem levelData={classLevel} />
+        </Grid>
       </div>
     </div>
   );

@@ -14,9 +14,10 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: 500,
-    maxWidth: 500,
-    display: "inline-block",
+    width: 300,
+    maxWidth: 300,
+    marginRight: 30,
+    marginBottom: 30,
   },
   expand: {
     transform: "rotate(0deg)",
