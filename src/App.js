@@ -6,7 +6,7 @@ import Home from "./components/MainPage/Home";
 import Layout from "./components/MainPage/Layout";
 import Race from "./components/Races/Race";
 import RaceInfo from "./components/Races/RaceInfo";
-import Calculate from "./components/MainPage/Calculate";
+import Calculate from "./components/CharacterCreation/Calculate";
 
 function App() {
   return (
