@@ -29,7 +29,14 @@ const useStyles = makeStyles((theme) => ({
   formControl: {
     margin: theme.spacing(3),
     minWidth: 120,
+    backgroundColor: "#FEFAE0"
   },
+  variable: {
+    backgroundColor: "#DDB892"
+  },
+  charLevel: {
+    backgroundColor: "#FEFAE0",
+  }
 }));
 
 const Calculate = () => {
@@ -193,7 +200,7 @@ const Calculate = () => {
     <div>
       <div className={classes.select}>
         <Grid container direction="column" alignItems="center" justify="center">
-          <Paper>
+          <Paper className={classes.variable}>
             <FormControl variant="outlined" className={classes.formControl}>
               <InputLabel id="demo-simple-select-outlined-label">
                 Select Race
@@ -239,6 +246,7 @@ const Calculate = () => {
             </IconButton>
             <TextField
               id="outlined-read-only-input"
+              className={classes.charLevel}
               label="Character Level"
               value={level}
               InputProps={{
