@@ -41,19 +41,19 @@ const RaceSelect = ({ raceData }) => {
   return (
     <div>
       <Card elevation={12} className={classes.root}>
-        <CardHeader title={raceData.name} />
+        <CardHeader title={raceData?.name} />
         <CardContent>
           <Typography paragraph color={"textPrimary"}>
-            Speed: {raceData.speed}
+            Speed: {raceData?.speed}
           </Typography>
           <Typography paragraph color={"textPrimary"}>
-            Size: {raceData.size}
+            Size: {raceData?.size}
           </Typography>
           <Typography paragraph color={"textPrimary"}>
             Race Ability Bonuses:
           </Typography>
           <Typography color={"textSecondary"} display={"block"}>
-            {raceData.bonusability.map((item) => (
+            {raceData?.bonusability?.map((item) => (
               <li key={item?.ability_score?.index}> {item?.bonus} {item?.ability_score?.name}</li>
             ))}
           </Typography>
@@ -61,7 +61,7 @@ const RaceSelect = ({ raceData }) => {
             Languages:
           </Typography>
           <Typography color={"textSecondary"} display={"block"}>
-            {raceData.lang.map((item) => (
+            {raceData?.lang?.map((item) => (
               <li key={item?.index}>{item?.name}</li>
             ))}
           </Typography>
@@ -69,7 +69,7 @@ const RaceSelect = ({ raceData }) => {
             Traits:
           </Typography>
           <Typography color={"textSecondary"} display={"block"}>
-            {raceData.traits.map((item) => (
+            {raceData?.traits?.map((item) => (
               <li key={item?.index}>{item?.name}</li>
             ))}
           </Typography>

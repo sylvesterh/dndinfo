@@ -1,11 +1,6 @@
-import ChooseGear from "./ChooseGear";
-import { Grid, Paper, Typography } from "@material-ui/core";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import Proficiencies from "./Proficiencies";
-import ChooseProfi from "./ChooseProfi";
-import ProvidedGear from "./ProvidedGear";
-import SavingThrow from "./SavingThrow";
+import ClassPaper from "./ClassPaper";
 
 const ClassInfo = (props) => {
   const params = useParams();
@@ -18,12 +13,10 @@ const ClassInfo = (props) => {
     choices: "",
     savingThrows: [],
     subclass: "",
-  });
-  const [equip,setEquip] = useState({
     startingGear: [],
     chooseGear: "",
     chosenGear: [],
-  })
+  });
   const url = "https://www.dnd5eapi.co/api/classes/";
 
   useEffect(() => {
@@ -43,12 +36,10 @@ const ClassInfo = (props) => {
           choices: json.proficiency_choices[0].choose,
           savingThrows: json.saving_throws,
           subclass: json.subclasses[0].name,
-        });
-        setEquip({
           startingGear: json?.starting_equipment,
           chooseGear: json?.starting_equipment_options[0]?.choose,
           chosenGear: json?.starting_equipment_options[0]?.from,
-        })
+        });
       } catch (error) {
         setStatus("error");
         alert(error);
@@ -77,48 +68,8 @@ const ClassInfo = (props) => {
 
   return (
     <div>
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={8} lg={8}>
-          <Paper elevation={5}>
-            <Typography variant="h6" align="center">{data.name} Basics</Typography>
-            <h4>Sub-class: </h4>
-            <li>{data.subclass}</li>
-            <h4>Dice Point: </h4>
-            <li>{data.dice}</li>
-            <h4>Saving Throw/ Main Stats</h4>
-            {data.savingThrows && <SavingThrow stats={data.savingThrows} />}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={8} lg={8}>
-          <Paper elevation={5}>
-            <Typography variant="h6" align="center">Innate Class Proficiencies:</Typography>
-            {data.prof && <Proficiencies innate={data.prof} />}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={8} lg={8}>
-          <Paper elevation={5}>
-            <Typography variant="h6" align="center">
-              Choice of {data.choices} proficiencies below:
-            </Typography>
-            {data.chooseProfi && <ChooseProfi choice={data.chooseProfi} />}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={8} lg={8}>
-          <Paper elevation={5}>
-            <Typography variant="h6" align="center">Starting Equipment</Typography>
-            {equip.startingGear && <ProvidedGear provided={equip.startingGear} />}
-          </Paper>
-        </Grid>
-        <Grid item xs={12} md={8} lg={8}>
-          <Paper elevation={5}>
-            <Typography variant="h6" align="center">
-              Choice of {equip.chooseGear} optional gear below:
-            </Typography>
-            {equip?.chosenGear && <ChooseGear optgear={equip?.chosenGear} />}
-          </Paper>
-        </Grid>
-        {showDetails(status)}
-      </Grid>
+      <ClassPaper paperData={data} />
+      {showDetails(status)}
     </div>
   );
 };
