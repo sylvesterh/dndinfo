@@ -1,8 +1,31 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import {
+  ListItem,
+  ListItemText,
+  makeStyles,
+  Paper,
+  Typography,
+} from "@material-ui/core";
 import Container from "@material-ui/core/Container";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+const useStyles = makeStyles((theme) => ({
+  listname: {
+    textAlign: "center",
+  },
+  paper: {
+    backgroundColor: "#C6C7C090",
+  },
+  header: {
+    color: "white",
+    fontFamily: "wittenberg-schwabacher",
+    fontStyle: "italic",
+    textAlign: "center"
+  },
+}));
 
 const Class = () => {
+  const classes = useStyles();
   const [classList, setClassList] = useState([]);
   const url = "https://www.dnd5eapi.co/api/classes";
 
@@ -18,13 +41,23 @@ const Class = () => {
   return (
     <div>
       <Container maxWidth="sm">
-        {classList.map((item) => (
-          <div className="classID" key={item.index}>
-            <h4>
-              <Link to={"/classes/" + item.index}>{item.name}</Link>
-            </h4>
-          </div>
-        ))}
+        <Typography variant="h2" className={classes.header}>
+          Classes
+        </Typography>
+        <Paper className={classes.paper}>
+          {classList.map((item) => (
+            <ListItem
+              button
+              key={item.index}
+              component={Link}
+              to={"/classes/" + item.index}
+            >
+              <ListItemText className={classes.listname}>
+                {item.name}
+              </ListItemText>
+            </ListItem>
+          ))}
+        </Paper>
       </Container>
     </div>
   );

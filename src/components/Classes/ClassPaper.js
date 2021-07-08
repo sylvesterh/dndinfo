@@ -1,15 +1,34 @@
 import React from "react";
 import { Grid, Paper, Typography } from "@material-ui/core";
 import { Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core";
+
+const useStyles = makeStyles((theme) => ({
+  paper: {
+    margin: theme.spacing(3),
+    minWidth: 120,
+    textAlign: "center",
+    backgroundColor: "#F4F4F499",
+    color: "black",
+    padding: 10,
+    borderRadius: 20
+  },
+  head: {
+    backgroundColor: "#ec7474",
+    textShadow: "1px black",
+    borderRadius: 30
+  }
+}));
 
 const ClassPaper = ({ paperData }) => {
+  const classes = useStyles();
   return (
     <Container>
       <div>
         <Grid container spacing={4} direction="row">
           <Grid item xs={12} md={4} lg={4}>
-            <Paper elevation={5}>
-              <Typography variant="h6" align="center">
+            <Paper elevation={5} className={classes.paper}>
+              <Typography variant="h6" className={classes.head} align="center">
                 {paperData.name} Basics
               </Typography>
               <h4>Sub-class: </h4>
@@ -24,8 +43,8 @@ const ClassPaper = ({ paperData }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
-            <Paper elevation={5}>
-              <Typography variant="h6" align="center">
+            <Paper elevation={5} className={classes.paper}>
+              <Typography variant="h6" className={classes.head} align="center">
                 Innate Class Proficiencies:
               </Typography>
               {paperData.prof &&
@@ -35,8 +54,8 @@ const ClassPaper = ({ paperData }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
-            <Paper elevation={5}>
-              <Typography variant="h6" align="center">
+            <Paper elevation={5} className={classes.paper}>
+              <Typography variant="h6" className={classes.head} align="center">
                 Choice of {paperData.choices} proficiencies below:
               </Typography>
               {paperData.chooseProfi &&
@@ -46,8 +65,8 @@ const ClassPaper = ({ paperData }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
-            <Paper elevation={5}>
-              <Typography variant="h6" align="center">
+            <Paper elevation={5} className={classes.paper}>
+              <Typography variant="h6" className={classes.head} align="center">
                 Starting Equipment
               </Typography>
               {paperData.startingGear &&
@@ -59,8 +78,8 @@ const ClassPaper = ({ paperData }) => {
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
-            <Paper elevation={5}>
-              <Typography variant="h6" align="center">
+            <Paper elevation={5} className={classes.paper}>
+              <Typography variant="h6" className={classes.head} align="center">
                 Choice of {paperData.chooseGear} optional gear below:
               </Typography>
               {paperData?.chosenGear &&

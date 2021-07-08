@@ -1,8 +1,25 @@
+import { ListItem, ListItemText, makeStyles, Paper, Typography } from "@material-ui/core";
+import Container from "@material-ui/core/Container";
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import Container from "@material-ui/core/Container";
+
+const useStyles = makeStyles((theme) => ({
+  listname: {
+    textAlign: "center",
+  },
+  paper: {
+    backgroundColor: "#C6C7C090",
+  },
+  header: {
+    color: "white",
+    fontFamily: "wittenberg-schwabacher",
+    fontStyle: "italic",
+    textAlign: "center",
+  },
+}));
 
 const Race = () => {
+  const classes = useStyles();
   const [raceList, setRaceList] = useState([]);
   const url = "https://www.dnd5eapi.co/api/races";
 
@@ -17,15 +34,23 @@ const Race = () => {
 
   return (
     <Container maxWidth="sm">
-      <div>
+      <Typography variant="h2" className={classes.header}>
+        Races
+      </Typography>
+      <Paper className={classes.paper}>
         {raceList.map((item) => (
-          <div className="raceID" key={item.index}>
-            <h4>
-              <Link to={"/races/" + item.index}>{item.name}</Link>
-            </h4>
-          </div>
+          <ListItem
+            button
+            key={item.index}
+            component={Link}
+            to={"/races/" + item.index}
+          >
+            <ListItemText className={classes.listname}>
+              {item.name}
+            </ListItemText>
+          </ListItem>
         ))}
-      </div>
+      </Paper>
     </Container>
   );
 };

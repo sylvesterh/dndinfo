@@ -30,14 +30,14 @@ const useStyles = makeStyles((theme)=> {
       backgroundSize: "100%",
       backgroundRepeat: "no-repeat",
       backgroundPosition: "bottom",
-
+      backgroundColor: "#B0B4B060",
       width: drawerWidth,
     },
     root: {
       display: "flex",
     },
     active: {
-      background: "#f4f4f4",
+      background: "#F7D44E",
     },
     title: {
       padding: theme.spacing(2),

@@ -32,11 +32,9 @@ function App() {
               <Race />
             </Route>
             <Route path="/simulate/:selectedID">
-              <h1>Create your Character</h1>
               <Calculate />
             </Route>
             <Route path="/simulate">
-              <h1>Create your Character</h1>
               <Calculate />
             </Route>
             <Redirect to="/" />

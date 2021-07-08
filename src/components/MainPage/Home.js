@@ -7,7 +7,9 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(3),
     minWidth: 120,
     textAlign: "center",
-    backgroundColor:"#FAE1DD"
+    backgroundColor:"#FAE1DD99",
+    color: "black",
+    padding: 10,
   },
   title: {
     fontFamily: "wittenberg-schwabacher",
