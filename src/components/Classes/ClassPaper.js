@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 
 const ClassPaper = ({ paperData }) => {
   const classes = useStyles();
+  console.log(paperData.chosenGear)
   return (
     <Container>
       <div>
@@ -98,7 +99,8 @@ const ClassPaper = ({ paperData }) => {
               </Typography>
               {paperData?.chosenGear?.map((opt) => (
                 <li key={opt?.equipment?.index}>
-                  {opt?.equipment?.name} x {opt?.quantity}
+                  {opt?.quantity} {opt?.equipment?.name}
+                  {opt?.equipment_option?.choose} {opt?.equipment_option?.from?.equipment_category?.name}
                 </li>
               ))}
             </Paper>

@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 300,
     marginRight: 30,
     marginBottom: 30,
-    backgroundColor: "#EDE0D499"
+    backgroundColor: "#EDE0D499",
   },
   expand: {
     transform: "rotate(0deg)",
@@ -101,7 +101,9 @@ const ClassSelect = ({ classInfo }) => {
             <Typography paragraph color={"textSecondary"}>
               {classInfo?.chosenGear?.map((gear) => (
                 <li key={gear?.equipment?.index}>
-                  {gear?.equipment?.name} x {gear?.quantity}
+                  {gear?.quantity} {gear?.equipment?.name}
+                  {gear?.equipment_option?.choose}{" "}
+                  {gear?.equipment_option?.from?.equipment_category?.name}
                 </li>
               ))}
             </Typography>
