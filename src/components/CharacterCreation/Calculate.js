@@ -56,7 +56,7 @@ const Calculate = () => {
   const [classList, setClassList] = useState([]);
   const [raceList, setRaceList] = useState([]);
   const [level, setLevel] = useState(
-    params.selectLevel == undefined ? 1 : params.selectLevel
+    params.selectLevel === undefined ? 1 : params.selectLevel
   );
   const [race, setRace] = useState({
     name: "",
@@ -172,7 +172,7 @@ const Calculate = () => {
       makeClassLevelApiCall();
       makeRaceApiCall();
     }
-  }, [params]);
+  }, [classChange,level,raceChange]);
 
   const handleRaceChange = (event) => {
     const race = event.target.value;
@@ -209,8 +209,6 @@ const Calculate = () => {
       setLevel(level);
     }
   };
-
-  console.log(params);
 
   return (
     <div>
