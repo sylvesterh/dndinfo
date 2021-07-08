@@ -52,9 +52,9 @@ const ClassSelect = ({ classInfo }) => {
             Starting Gear:
           </Typography>
           <Typography paragraph color={"textSecondary"}>
-            {classInfo.startingGear.map((gear) => (
+            {classInfo?.startingGear?.map((gear) => (
               <li key={gear.equipment.index}>
-                {gear.equipment.name} x {gear.quantity}
+                {gear?.equipment.name} x {gear?.quantity}
               </li>
             ))}
           </Typography>
@@ -62,8 +62,8 @@ const ClassSelect = ({ classInfo }) => {
             Saving Throw/ Main Stats:
           </Typography>
           <Typography color={"textSecondary"} display={"block"}>
-            {classInfo.savingThrows.map((item) => (
-              <li key={item.index}>{item.name}</li>
+            {classInfo?.savingThrows?.map((item) => (
+              <li key={item?.index}>{item?.name}</li>
             ))}
           </Typography>
         </CardContent>

@@ -14,6 +14,7 @@ import { useHistory } from "react-router-dom";
 import ClassSelect from "./ClassSelect";
 import LevelSystem from "./LevelSystem";
 import RaceSelect from "./RaceSelect";
+import { useParams } from "react-router";
 
 const useStyles = makeStyles((theme) => ({
   header: {
@@ -47,13 +48,16 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Calculate = () => {
+  const params = useParams();
   const classes = useStyles();
   const history = useHistory();
-  const [raceChange, setRaceChange] = useState();
-  const [classChange, setClassChange] = useState();
+  const [raceChange, setRaceChange] = useState(params.selectRaceID);
+  const [classChange, setClassChange] = useState(params.selectClassID);
   const [classList, setClassList] = useState([]);
   const [raceList, setRaceList] = useState([]);
-  const [level, setLevel] = useState(1);
+  const [level, setLevel] = useState(
+    params.selectLevel == undefined ? 1 : params.selectLevel
+  );
   const [race, setRace] = useState({
     name: "",
     speed: "",
@@ -111,18 +115,8 @@ const Calculate = () => {
     makeApiCall();
   }, []);
 
-  const handleRaceChange = (event) => {
-    const race = event.target.value;
-    setRaceChange(race);
-  };
-
-  const handleClassChange = (event) => {
-    const chooseClass = event.target.value;
-    setClassChange(chooseClass);
-  };
-
-  const handleSubmit = () => {
-    if (classChange || raceChange !== undefined) {
+  useEffect(() => {
+    if (raceChange || classChange || level !== undefined) {
       const selectClassUrl = `${classUrl}${classChange}`;
       const selectRaceUrl = `${raceUrl}${raceChange}`;
       const classLevelUrl = `${classUrl}${classChange}/levels/${level}`;
@@ -153,13 +147,13 @@ const Calculate = () => {
           name: json?.name,
           dice: json?.hit_die,
           prof: json?.proficiencies,
-          chooseProfi: json?.proficiency_choices[0]?.from,
-          choices: json?.proficiency_choices[0]?.choose,
+          chooseProfi: json?.proficiency_choices?.[0]?.from,
+          choices: json?.proficiency_choices?.[0]?.choose,
           savingThrows: json?.saving_throws,
-          subclass: json?.subclasses[0].name,
+          subclass: json?.subclasses?.[0]?.name,
           startingGear: json?.starting_equipment,
-          chooseGear: json?.starting_equipment_options[0].choose,
-          chosenGear: json?.starting_equipment_options[0].from,
+          chooseGear: json?.starting_equipment_options?.[0]?.choose,
+          chosenGear: json?.starting_equipment_options?.[0]?.from,
         });
       };
       const makeClassLevelApiCall = async () => {
@@ -174,12 +168,25 @@ const Calculate = () => {
           levelFeatures: json.features,
         });
       };
-
       makeClassApiCall();
       makeClassLevelApiCall();
       makeRaceApiCall();
+    }
+  }, [params]);
 
-      history.push(`/simulate/${raceChange}/${classChange}`);
+  const handleRaceChange = (event) => {
+    const race = event.target.value;
+    setRaceChange(race);
+  };
+
+  const handleClassChange = (event) => {
+    const chooseClass = event.target.value;
+    setClassChange(chooseClass);
+  };
+
+  const handleSubmit = () => {
+    if (classChange || raceChange !== undefined) {
+      history.push(`/simulate/${raceChange}/${classChange}/${level}`);
     } else {
       history.push(`/simulate`);
     }
@@ -190,7 +197,7 @@ const Calculate = () => {
       const current = level - 1;
       setLevel(current);
     } else {
-      setLevel(level);
+      setLevel(1);
     }
   };
 
@@ -203,12 +210,14 @@ const Calculate = () => {
     }
   };
 
+  console.log(params);
+
   return (
     <div>
       <div className={classes.select}>
         <Grid container direction="column" alignItems="center" justify="center">
           <Typography variant="h2" className={classes.header}>
-            Create your Character
+            Create Your Character
           </Typography>
           <Paper className={classes.variable}>
             <FormControl variant="outlined" className={classes.formControl}>

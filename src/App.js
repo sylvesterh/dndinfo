@@ -31,7 +31,7 @@ function App() {
               <h1>Races</h1>
               <Race />
             </Route>
-            <Route path="/simulate/:selectedID">
+            <Route path="/simulate/:selectRaceID/:selectClassID/:selectLevel">
               <Calculate />
             </Route>
             <Route path="/simulate">

@@ -11,13 +11,19 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#F4F4F499",
     color: "black",
     padding: 10,
-    borderRadius: 20
+    borderRadius: 20,
   },
   head: {
-    backgroundColor: "#ec7474",
+    backgroundColor: "#FDFF8699",
     textShadow: "1px black",
-    borderRadius: 30
-  }
+    borderRadius: 30,
+  },
+  para: {
+    padding: theme.spacing(1),
+    fontWeight: "bold",
+    borderRadius: 40,
+    backgroundColor: "#ec747460",
+  },
 }));
 
 const ClassPaper = ({ paperData }) => {
@@ -31,15 +37,26 @@ const ClassPaper = ({ paperData }) => {
               <Typography variant="h6" className={classes.head} align="center">
                 {paperData.name} Basics
               </Typography>
-              <h4>Sub-class: </h4>
-              <li>{paperData.subclass}</li>
-              <h4>Dice Point: </h4>
-              <li>{paperData.dice}</li>
-              <h4>Saving Throw/ Main Stats</h4>
-              {paperData.savingThrows &&
-                paperData?.savingThrows?.map((stat) => (
+              <Typography paragraph className={classes.para}>
+                Sub-class:
+              </Typography>
+              <Typography variant="body2">
+                <li>{paperData.subclass}</li>
+              </Typography>
+              <Typography paragraph className={classes.para}>
+                Dice Point:
+              </Typography>
+              <Typography variant="body2">
+                <li>{paperData.dice}</li>
+              </Typography>
+              <Typography paragraph className={classes.para}>
+                Saving Throw/ Main Stats:
+              </Typography>
+              <Typography variant="body2">
+                {paperData?.savingThrows?.map((stat) => (
                   <li key={stat?.index}>{stat?.name}</li>
                 ))}
+              </Typography>
             </Paper>
           </Grid>
           <Grid item xs={12} md={6} lg={4}>
@@ -47,10 +64,9 @@ const ClassPaper = ({ paperData }) => {
               <Typography variant="h6" className={classes.head} align="center">
                 Innate Class Proficiencies:
               </Typography>
-              {paperData.prof &&
-                paperData?.prof?.map((item) => {
-                  return <li key={item?.name}>{item?.name}</li>;
-                })}
+              {paperData?.prof?.map((item) => {
+                return <li key={item?.name}>{item?.name}</li>;
+              })}
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
@@ -58,10 +74,9 @@ const ClassPaper = ({ paperData }) => {
               <Typography variant="h6" className={classes.head} align="center">
                 Choice of {paperData.choices} proficiencies below:
               </Typography>
-              {paperData.chooseProfi &&
-                paperData?.chooseProfi?.map((choice) => {
-                  return <li key={choice?.name}>{choice?.name}</li>;
-                })}
+              {paperData?.chooseProfi?.map((choice) => {
+                return <li key={choice?.name}>{choice?.name}</li>;
+              })}
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
@@ -69,12 +84,11 @@ const ClassPaper = ({ paperData }) => {
               <Typography variant="h6" className={classes.head} align="center">
                 Starting Equipment
               </Typography>
-              {paperData.startingGear &&
-                paperData.startingGear?.map((opt) => (
-                  <li key={opt?.equipment?.index}>
-                    {opt?.equipment?.name} x {opt?.quantity}
-                  </li>
-                ))}
+              {paperData.startingGear?.map((opt) => (
+                <li key={opt?.equipment?.index}>
+                  {opt?.equipment?.name} x {opt?.quantity}
+                </li>
+              ))}
             </Paper>
           </Grid>
           <Grid item xs={12} md={4} lg={4}>
@@ -82,12 +96,11 @@ const ClassPaper = ({ paperData }) => {
               <Typography variant="h6" className={classes.head} align="center">
                 Choice of {paperData.chooseGear} optional gear below:
               </Typography>
-              {paperData?.chosenGear &&
-                paperData.chosenGear?.map((opt) => (
-                  <li key={opt?.equipment?.index}>
-                    {opt?.equipment?.name} x {opt?.quantity}
-                  </li>
-                ))}
+              {paperData?.chosenGear?.map((opt) => (
+                <li key={opt?.equipment?.index}>
+                  {opt?.equipment?.name} x {opt?.quantity}
+                </li>
+              ))}
             </Paper>
           </Grid>
         </Grid>
