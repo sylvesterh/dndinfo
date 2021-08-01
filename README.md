@@ -1,6 +1,10 @@
 # Dungeons & Dragons - Character Starter Kit
 Dndinfo is a single-page application to help beginners who are starting off their characters in Dungeon & Dragons.
 
+## About
+Dndinfo acts like an easy to navigate wikipedia for new players to find out how they would want to define their character.   
+The players are able to use this appication to retrieve their character information whenever they return to the same game.
+
 ## Technologies
 * React
 * Material-UI
